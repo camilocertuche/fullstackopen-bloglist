@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "bloglist",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "shx echo \"Error: no test specified\" &&  exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camilocertuche/fullstackopen-bloglist.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Samuel Camilo Certuche Díaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/camilocertuche/fullstackopen-bloglist/issues"
+  },
+  "homepage": "https://github.com/camilocertuche/fullstackopen-bloglist#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "shx": "^0.3.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.1"
+  }
+}
