@@ -69,6 +69,24 @@ test("if likes is not defined, it is set to 0", async () => {
   expect(addedBlog.body.likes).toBe(0);
 });
 
+test("if title is not defined, the request is rejected", async () => {
+  const newBlog = {
+    author: "Test Author",
+    url: "https://test-url.com/",
+  };
+
+  await api.post("/api/blogs").send(newBlog).expect(400);
+});
+
+test("if url is not defined, the request is rejected", async () => {
+  const newBlog = {
+    title: "Test Blog",
+    author: "Test Author",
+  };
+
+  await api.post("/api/blogs").send(newBlog).expect(400);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
