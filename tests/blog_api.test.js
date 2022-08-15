@@ -50,6 +50,25 @@ test("successfully adds a new blog post", async () => {
   expect(addedBlog.body.likes).toBe(newBlog.likes);
 });
 
+test("if likes is not defined, it is set to 0", async () => {
+  const newBlog = {
+    title: "Test Blog",
+    author: "Test Author",
+    url: "https://test-url.com/",
+  };
+
+  const addedBlog = await api.post("/api/blogs").send(newBlog).expect(201);
+
+  const blogs = await api.get("/api/blogs");
+
+  expect(blogs.body).toHaveLength(initialBlogs.length + 1);
+  expect(addedBlog.body.title).toBe(newBlog.title);
+  expect(addedBlog.body.author).toBe(newBlog.author);
+  expect(addedBlog.body.url).toBe(newBlog.url);
+  expect(addedBlog.body.likes).toBeDefined();
+  expect(addedBlog.body.likes).toBe(0);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
