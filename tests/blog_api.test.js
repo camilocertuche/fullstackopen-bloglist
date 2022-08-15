@@ -113,6 +113,34 @@ describe("deletion of a blog", () => {
   });
 });
 
+describe("updating a blog", () => {
+  test("succeeds with status code 200 if id is valid", async () => {
+    const blogs = await blogsInDb();
+    const blogToUpdate = blogs[0];
+    const updatedBlog = {
+      likes: 120,
+    };
+
+    const result = await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updatedBlog)
+      .expect(200);
+    expect(result.body.likes).toBe(updatedBlog.likes);
+  });
+
+  test("fails with status code 404 if id not exists", async () => {
+    const validNonexistingId = await nonExistingId();
+
+    await api.put(`/api/blogs/${validNonexistingId}`).expect(404);
+  });
+
+  test("fails with status code 400 if id is invalid", async () => {
+    const invalidId = "5a3d5da59070081a82a3445";
+
+    await api.put(`/api/blogs/${invalidId}`).expect(400);
+  });
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
