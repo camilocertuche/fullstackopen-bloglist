@@ -1,9 +1,15 @@
 const userRouter = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { validateUserNameAndPassword } = require("../utils/user_helper");
 
 userRouter.post("/", async (request, response) => {
   const { username, password, name } = request.body;
+
+  const { error } = validateUserNameAndPassword(username, password);
+  if (error) {
+    return response.status(400).json({ error });
+  }
 
   const existingUser = await User.findOne({ username });
   if (existingUser) {
